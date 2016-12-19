@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login Reg</title>
+    {% load staticfiles %}
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'login_reg/css/index.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class='col-xs-4 col-xs-offset-1 well'>
+            <h3>Log In</h3>
+            <br>
+            <form action="{% url 'login_reg:login' %}" method="post">
+                {% csrf_token %}
+                <div class='form-group'>
+                    <label>Email:
+                        {% for error in messages %}
+                        {% if error.extra_tags == 'login' %} <span class="error">{{ error.message }}</span> {% endif %}
+                        {% endfor %}
+                    </label>
+                    <input class="form-control" type="email" name="email" />
+                </div>
+                <div class='form-group'>
+                    <label>Password:
+                    </label>
+                    <input class="form-control" type="password" name="password" />
+                </div>
+                <div class='form-group'>
+                    <input class='btn btn-success pull-right' type="submit" value="Login" role='button'/>
+                </div>
+            </form>
+        </div>
+
+        <div class='col-xs-4 col-xs-offset-2 well'>
+            <h3>Register</h3>
+            <br>
+            <form action="{% url 'login_reg:register' %}" method="post">
+                {% csrf_token %}
+                <div class='form-group'>
+                    <label for='name'>Name:
+                        {% for error in messages %}
+                        {% if error.extra_tags == 'name' %} <span class="error">{{ error.message }}</span> {% endif %}
+                        {% endfor %}
+                    </label>
+                    <input class="form-control" type="text" name="name" id="name"/>
+                </div>
+                <div class='form-group'>
+                    <label for='email'>Email:
+                        {% for error in messages %}
+                        {% if error.extra_tags == 'email' %} <span class="error">{{ error.message }}</span> {% endif %}
+                        {% endfor %}
+                    </label>
+                    <input class="form-control" type="email" name="email" id='email'/>
+                </div>
+                <div class='form-group'>
+                    <label for='password'>Password (8+ characters):
+                        {% for error in messages %}
+                        {% if error.extra_tags == 'password' %} <span class="error">{{ error.message }}</span> {% endif %}
+                        {% endfor %}
+                    </label>
+                    <input class="form-control" type="password" name="password" id='password'/>
+                </div>
+                <div class='form-group'>
+                    <label for='passwordConfirm'>Confirm Password:
+                        {% for error in messages %}
+                        {% if error.extra_tags == 'passwordConfirm' %} <span class="error">{{ error.message }}</span> {% endif %}
+                        {% endfor %}
+                    </label>
+                    <input class="form-control" type="password" name="passwordConfirm" id='passwordConfirm'/>
+                </div>
+                <div class='form-group'>
+                    <input class='btn btn-success pull-right' type="submit" value="Register" role='button'/>
+                </div>
+            </form>
+        </div>
+
+    </div> <!-- end of container -->
+</body>
+</html>
